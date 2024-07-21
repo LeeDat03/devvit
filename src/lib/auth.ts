@@ -1,10 +1,11 @@
-import { NextAuthConfig } from "next-auth";
 import { db } from "./db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Google from "next-auth/providers/google";
 import { nanoid } from "nanoid";
 
-export const authConfig: NextAuthConfig = {
+import NextAuth from "next-auth";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db),
   session: {
     strategy: "jwt",
@@ -65,4 +66,4 @@ export const authConfig: NextAuthConfig = {
       return "/";
     },
   },
-};
+});

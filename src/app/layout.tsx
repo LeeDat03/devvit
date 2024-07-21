@@ -1,4 +1,5 @@
 import NavBar from "@/components/nav-bar";
+import Provider from "@/components/provider";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
@@ -15,22 +16,28 @@ const inter = Inter({
 
 export default function RootLayout({
   children,
+  authModal,
 }: {
   children: React.ReactNode;
+  authModal: React.ReactNode;
 }) {
   return (
     <html
       lang="en"
       className={cn("bg-white text-slate-900 antialiased ", inter.className)}
     >
-      <body className="min-h-screen pt-12 bg-slate-50 antialiased">
-        <NavBar />
+      <Provider>
+        <body className="min-h-screen bg-slate-50 antialiased relative">
+          <NavBar />
 
-        <div className="container max-w-7xl mx-auto h-full pt-12">
-          {children}
-        </div>
-        <Toaster />
-      </body>
+          {authModal}
+
+          <div className="container max-w-7xl mx-auto h-full pt-24">
+            {children}
+          </div>
+          <Toaster />
+        </body>
+      </Provider>
     </html>
   );
 }
